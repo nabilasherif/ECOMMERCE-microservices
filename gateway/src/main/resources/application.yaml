@@ -1,0 +1,96 @@
+server:
+  port: 8070
+
+spring:
+  application:
+    name: api-gateway-service
+  cloud:
+    gateway:
+      server:
+        webmvc:
+          routes:
+#            - id: wallet-route
+#              uri: lb://wallet-service
+#              predicates:
+#                - Path=/api/wallet/**
+#              filters:
+#                - AddResponseHeader=X-Powered-By,Nabila Gateway Service
+#                - name: CircuitBreaker
+#                  args:
+#                    name: myServiceCircuitBreaker
+#                    fallbackUri: forward:/fallback
+            - id: shop-route
+              uri: lb://shop-service
+              predicates:
+                - Path=/api/shop/**
+              filters:
+                - AddResponseHeader=X-Powered-By,Nabila Gateway Service
+            - id: inventory-route
+              uri: lb://inventory-service
+              predicates:
+                - Path=/api/inventory/**
+              filters:
+                - AddResponseHeader=X-Powered-By,Nabila Gateway Service
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    circuit breakers:
+      enabled: true
+
+
+
+resilience4j.circuitbreaker:
+  instances:
+    myServiceCircuitBreaker:
+      registerHealthIndicator: true
+      slidingWindowSize: 10
+      failureRateThreshold: 50
+      waitDurationInOpenState: 10s
+      permittedNumberOfCallsInHalfOpenState: 3
+      minimumNumberOfCalls: 5
+
+
+#resilience4j.circuitbreaker.instances.exampleCircuitBreaker:
+#  registerHealthIndicator: true
+#  failureRateThreshold: 50
+#  waitDurationInOpenState: 10s
+#  slidingWindowSize: 10
+#  permittedNumberOfCallsInHalfOpenState: 3
+#  minimumNumberOfCalls: 5
+
+
+#resilience4j:
+#  circuitbreaker:
+#    configs:
+#      default:
+#        failureRateThreshold: 50
+#        waitDurationInOpenState: 10s
+#        slidingWindowSize: 10
+#    instances:
+#      circuitBreaker:
+#        baseConfig: default
+#        permittedNumberOfCallsInHalfOpenState: 3
+#        minimumNumberOfCalls: 5
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://nabila.mshome.net:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+
+#logging:
+#  level:
+#    org.springframework.cloud.gateway: DEBUG
+#    com.netflix.discovery: DEBUG
+#    reactor.netty.http.server: DEBUG
+
+#                - name: CircuitBreaker
+#                  args:
+#                    name: circuitBreaker
+#                    fallbackUri: forward:/fallback
