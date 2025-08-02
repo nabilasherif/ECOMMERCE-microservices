@@ -53,30 +53,6 @@ resilience4j.circuitbreaker:
       permittedNumberOfCallsInHalfOpenState: 3
       minimumNumberOfCalls: 5
 
-
-#resilience4j.circuitbreaker.instances.exampleCircuitBreaker:
-#  registerHealthIndicator: true
-#  failureRateThreshold: 50
-#  waitDurationInOpenState: 10s
-#  slidingWindowSize: 10
-#  permittedNumberOfCallsInHalfOpenState: 3
-#  minimumNumberOfCalls: 5
-
-
-#resilience4j:
-#  circuitbreaker:
-#    configs:
-#      default:
-#        failureRateThreshold: 50
-#        waitDurationInOpenState: 10s
-#        slidingWindowSize: 10
-#    instances:
-#      circuitBreaker:
-#        baseConfig: default
-#        permittedNumberOfCallsInHalfOpenState: 3
-#        minimumNumberOfCalls: 5
-
-
 eureka:
   client:
     service-url:
@@ -89,8 +65,3 @@ eureka:
 #    org.springframework.cloud.gateway: DEBUG
 #    com.netflix.discovery: DEBUG
 #    reactor.netty.http.server: DEBUG
-
-#                - name: CircuitBreaker
-#                  args:
-#                    name: circuitBreaker
-#                    fallbackUri: forward:/fallback
