@@ -1,6 +1,7 @@
 # 🛍️ Ecommerce Microservices
 
-A simple e-commerce backend built with Spring Boot and Spring Cloud using a microservices architecture.
+A learning-oriented e-commerce backend built with Spring Boot using a microservices architecture.
+
 
 ## 🧱 Microservices
 
